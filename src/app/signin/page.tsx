@@ -12,7 +12,7 @@ const Page = () => {
   const router = useRouter();
   const handleOnCLick = async () => {
     try {
-      const resp = await axios.post("http://13.232.169.110:3000/api/signin", {
+      const resp = await axios.post("/api/signin", {
         username,
         password,
       });

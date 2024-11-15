@@ -12,7 +12,7 @@ const CenterBottom = () => {
   const [message, setMessage] = useState("");
   const handleSubmit = async () => {
     const response = await axios.post(
-      "http://13.232.169.110:3000/api/messages",
+      "/api/messages",
       {
         senderId: state.user.userId, //remove this & extract in server side
         receiverId: state.friend.friendId,

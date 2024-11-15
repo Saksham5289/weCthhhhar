@@ -10,7 +10,7 @@ const Page = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const handleOnCLick = async () => {
-    const resp = await axios.post("http://13.232.169.110:3000/api/signup", {
+    const resp = await axios.post("/api/signup", {
       username,
       password,
     });
