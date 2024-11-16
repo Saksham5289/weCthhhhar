@@ -4,7 +4,7 @@ import CircularImage from "@/app/utilcomponents/CircularImage";
 import React from "react";
 
 import friendPic from "../../assets/pp4.png";
-import PrimaryHeading from "@/app/utilcomponents/PrimaryHeading";
+
 import { useSelector } from "react-redux";
 import { rootState } from "@/app/redux/rootState";
 

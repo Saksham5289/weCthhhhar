@@ -1,13 +1,13 @@
 import React from "react";
-import CircularCount from "./CircularCount";
+
 import CircularImage from "./CircularImage";
-import SecondaryHeading from "./SecondaryHeading";
+
 import SmallText from "./SmallText";
 
 interface FriendBoxType {
   url: string;
   name: string;
-  onClick: () => void; // Optional click handler for the box
+  onClick?: () => void; // Optional click handler for the box
 }
 
 const FriendBox = ({ url, name, onClick }: FriendBoxType) => {

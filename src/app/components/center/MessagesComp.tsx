@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import SingleMessage from "./SingleMessage";
-import Messages from "./DummyMessages";
+
 import { useSelector } from "react-redux";
 import { rootState } from "@/app/redux/rootState";
 import axios from "axios";
@@ -37,7 +37,7 @@ const MessagesComp = () => {
       console.log(response.data, "All Messages");
     };
     fetchAllMessages();
-    const handleInserts = (payload) => {
+    const handleInserts = (payload: any) => {
       const newMessage = payload.new;
       setAllMessages((prevMessage) => [...prevMessage, newMessage]);
     };

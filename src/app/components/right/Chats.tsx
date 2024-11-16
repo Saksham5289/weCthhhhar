@@ -3,11 +3,10 @@
 import FriendBox from "@/app/utilcomponents/FriendBox";
 import PrimaryHeading from "@/app/utilcomponents/PrimaryHeading";
 import React, { useEffect, useState } from "react";
-import friend1 from "../../assets/pp7.png";
 
 import friend6 from "../../assets/pp2.png";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateFriend } from "@/app/redux/slices/friendSlice";
 
 const Chats = () => {
@@ -16,7 +15,7 @@ const Chats = () => {
     username: string;
   }
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
+
   const [allFriends, setAllFriends] = useState<Friend[]>([]);
 
   const handleFriendSelect = (friendId: number, friendName: string) => {
@@ -43,6 +42,7 @@ const Chats = () => {
       {allFriends.map((friend) => {
         return (
           <FriendBox
+            key={friend.id}
             url={friend6.src}
             name={friend.username}
             onClick={() => handleFriendSelect(friend.id, friend.username)}
