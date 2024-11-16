@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import SingleMessage from "./SingleMessage";
 
 import { useSelector } from "react-redux";
-import { rootState } from "@/app/redux/rootState";
+import { rootState } from "../../redux/rootState";
 import axios from "axios";
 import { createClient } from "@supabase/supabase-js";
 
@@ -16,9 +16,6 @@ const MessagesComp = () => {
     text: string;
     createdAt: string;
   }
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const state = useSelector((state: rootState) => state);
   const [allMessages, setAllMessages] = useState<Message[]>([]);
@@ -27,6 +24,10 @@ const MessagesComp = () => {
     myvar = localStorage.getItem("token");
   }
   useEffect(() => {
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+    const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
     const fetchAllMessages = async () => {
       const response = await axios.get(
         `/api/messages?friendId=${state.friend.friendId}`,

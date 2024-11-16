@@ -1,6 +1,6 @@
 "use client";
 
-import { rootState } from "@/app/redux/rootState";
+import { rootState } from "../../redux/rootState";
 import axios from "axios";
 import React, { useState } from "react";
 

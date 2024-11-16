@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import friend6 from "../../assets/pp2.png";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { updateFriend } from "@/app/redux/slices/friendSlice";
+import { updateFriend } from "../../redux/slices/friendSlice";
 
 const Chats = () => {
   interface Friend {

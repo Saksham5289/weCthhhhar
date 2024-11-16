@@ -6,7 +6,7 @@ import React from "react";
 import friendPic from "../../assets/pp4.png";
 
 import { useSelector } from "react-redux";
-import { rootState } from "@/app/redux/rootState";
+import { rootState } from "../../redux/rootState";
 
 const FriendChatBox = () => {
   const state = useSelector((state: rootState) => state);

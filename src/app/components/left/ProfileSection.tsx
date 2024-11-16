@@ -6,7 +6,7 @@ import userProfilePic from "../../assets/pp2.png";
 import SecondaryHeading from "@/app/utilcomponents/SecondaryHeading";
 import SmallText from "@/app/utilcomponents/SmallText";
 import { useSelector } from "react-redux";
-import { rootState } from "@/app/redux/rootState";
+import { rootState } from "../../redux/rootState";
 
 const ProfileSection = () => {
   const state = useSelector((state: rootState) => state);
