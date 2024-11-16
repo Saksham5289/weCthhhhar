@@ -17,9 +17,11 @@ const Page = () => {
         password,
       });
       console.log(resp.data);
-      localStorage.setItem("token", resp.data.token);
-      localStorage.setItem("username", resp.data.user.username);
-      localStorage.setItem("id", resp.data.user.id);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", resp.data.token);
+        localStorage.setItem("username", resp.data.user.username);
+        localStorage.setItem("id", resp.data.user.id);
+      }
       router.push("/chat");
     } catch (e) {
       console.error(e);

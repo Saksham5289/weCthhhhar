@@ -22,6 +22,10 @@ const MessagesComp = () => {
 
   const state = useSelector((state: rootState) => state);
   const [allMessages, setAllMessages] = useState<Message[]>([]);
+  let myvar: any = null;
+  if (typeof window !== "undefined") {
+    myvar = localStorage.getItem("token");
+  }
   useEffect(() => {
     const fetchAllMessages = async () => {
       const response = await axios.get(
@@ -29,7 +33,7 @@ const MessagesComp = () => {
         {
           headers: {
             userId: state.user.userId,
-            authorization: `Bearer ${localStorage.getItem("token")}`,
+            authorization: `Bearer ${myvar}`,
           },
         }
       );

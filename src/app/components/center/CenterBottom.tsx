@@ -8,6 +8,10 @@ import { ArrowRight } from "react-feather";
 import { useSelector } from "react-redux";
 
 const CenterBottom = () => {
+  let myvar: any = null;
+  if (typeof window !== "undefined") {
+    myvar = localStorage.getItem("token");
+  }
   const state = useSelector((state: rootState) => state);
   const [message, setMessage] = useState("");
   const handleSubmit = async () => {
@@ -20,7 +24,7 @@ const CenterBottom = () => {
       },
       {
         headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
+          authorization: `Bearer ${myvar}`,
         },
       }
     );

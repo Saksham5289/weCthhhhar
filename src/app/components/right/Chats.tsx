@@ -22,12 +22,15 @@ const Chats = () => {
     console.log("Clicked on friend");
     dispatch(updateFriend({ friendId, friendName }));
   };
-
+  let myvar: any = null;
+  if (typeof window !== "undefined") {
+    myvar = localStorage.getItem("token");
+  }
   useEffect(() => {
     const getFriends = async () => {
       const allFriends = await axios.get("/api/users/all", {
         headers: {
-          authorization: `Bearer ${localStorage.getItem("token")}`,
+          authorization: `Bearer ${myvar}`,
         },
       });
       setAllFriends(allFriends.data);
