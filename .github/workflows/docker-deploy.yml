@@ -36,23 +36,20 @@ jobs:
         docker push sakshambitsp/connect:latest
 
       # SSH into EC2 and deploy
-    - name: SSH into EC2 and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        port: 22
-        script: |
-          # Pull the Docker image from Docker Hub
-          docker pull sakshambitsp/connect:latest
-          
-          # Run the Docker container and pass the environment variables
-          docker run -d -p 3000:3000 \
-            --restart unless-stopped \
-            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
-            -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-            -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
-            -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
-            sakshambitsp/connect:latest
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+    - name: Pull image from docker hub
+      run:  docker pull sakshambitsp/connect:latest
+    - name: Run docker container
+      run:  docker run -d -p 3000:3000 \
+               --restart unless-stopped \
+               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+               -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
+               -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
+               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
+               sakshambitsp/connect:latest
+
+    
