@@ -49,8 +49,8 @@ jobs:
                -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
                -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
                -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
-               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
+               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
                 sakshambitsp/connect:latest
 
     
