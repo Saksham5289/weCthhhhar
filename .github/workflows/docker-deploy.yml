@@ -43,16 +43,13 @@ jobs:
     - name: Pull image from docker hub
       run:  sudo docker pull sakshambitsp/connect:latest
     - name: Run docker container
-      run:  sudo docker run -d -p 3000:3000 sakshambitsp/connect:latest
-                 
-                   
-      # run:  sudo docker run -d -p 3000:3000 \
-      #          --restart unless-stopped \
-      #          -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-      #          -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
-      #          -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-      #          -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
-      #          -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
-      #           sakshambitsp/connect:latest
+      run:  sudo docker run -d -p 3000:3000 \
+               --restart unless-stopped \
+               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+               -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
+               -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
+               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
+                sakshambitsp/connect
 
     
