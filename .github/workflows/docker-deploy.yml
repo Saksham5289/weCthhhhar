@@ -41,9 +41,9 @@ jobs:
     runs-on: self-hosted
     steps:
     - name: Pull image from docker hub
-      run:  docker pull sakshambitsp/connect:latest
+      run:  sudo docker pull sakshambitsp/connect:latest
     - name: Run docker container
-      run:  docker run -d -p 3000:3000 \
+      run:  sudo docker run -d -p 3000:3000 \
                --restart unless-stopped \
                -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
                -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
