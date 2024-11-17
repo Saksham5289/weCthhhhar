@@ -25,10 +25,10 @@ const MessagesComp = () => {
   }
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  useEffect(() => {
-    // @ts-expect-error "asdffff"
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // @ts-expect-error "asdffff"
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+  useEffect(() => {
     const fetchAllMessages = async () => {
       const response = await axios.get(
         `/api/messages?friendId=${state.friend.friendId}`,
