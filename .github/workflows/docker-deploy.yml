@@ -37,7 +37,7 @@ jobs:
 
       # SSH into EC2 and deploy
     - name: SSH into EC2 and deploy
-      uses: appleboy/ssh-action@v0.1.0
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
@@ -49,6 +49,7 @@ jobs:
           
           # Run the Docker container and pass the environment variables
           docker run -d -p 3000:3000 \
+            --restart unless-stopped \
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
             -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
