@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET_KEY || "";
+console.log(JWT_SECRET, "from backend ");
 export async function POST(req: NextRequest) {
   const { username, password } = await req.json();
   //   const hashedPassword = await bcrypt.hash(password, 10);
