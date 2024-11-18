@@ -30,7 +30,7 @@ const Page = () => {
   return (
     <div className="h-screen w-screen bg-slate-100  flex items-center justify-center">
       <div className="h-1/3 w-3/12 border rounded bg-white border-zinc-950 flex flex-col p-5 gap-10">
-        <p className="text-4xl font-extrabold">Sign In</p>
+        <p className="text-4xl font-extrabold">Signn In</p>
         <input
           className="w-3/4 border-b focus:outline-none"
           type="text"
