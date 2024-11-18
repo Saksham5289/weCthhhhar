@@ -45,16 +45,13 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-232-245-88.ap-south-1.compute.amazonaws.com << 'EOF'
-            # Stop and remove the existing container (if running)
-            sudo docker stop connect-container || true
+          sudo docker stop connect-container || true
             sudo docker rm connect-container || true
-
-            # Pull the new Docker image
-            sudo docker pull sakshambitsp/connect:latest
+            # Pull the Docker image
+           sudo docker pull sakshambitsp/connect:latest
 
             # Run the Docker container with environment variables
-            sudo docker run -d -p 3000:3000 \
-              --name connect-container \
+           sudo docker run -d -p 3000:3000 \
               --restart unless-stopped \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
@@ -62,7 +59,4 @@ jobs:
               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
               sakshambitsp/connect:latest
-
-            # Clean up old Docker images that are not needed
-            sudo docker image prune -a -f
           EOF
