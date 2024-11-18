@@ -25,32 +25,35 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build Docker image
+      # Build Docker image with environment variables
     - name: Build Docker image
       run: |
-        docker build -t sakshambitsp/connect .
+        docker build \
+          --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+          --build-arg DIRECT_URL=${{ secrets.DIRECT_URL }} \
+          --build-arg JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+          --build-arg NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+          --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
+          -t sakshambitsp/connect:latest .
 
       # Push Docker image
     - name: Push Docker image
       run: |
         docker push sakshambitsp/connect:latest
 
-      # SSH into EC2 and deploy
   deploy:
     needs: build
     runs-on: self-hosted
-    steps:
-    - name: Pull image from docker hub
-      run:  sudo docker pull sakshambitsp/connect:latest
-    - name: Run docker container
-      run: |
-          sudo docker run -d -p 3000:3000 \
-               --restart unless-stopped \
-               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-               -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
-               -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-               -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
-               -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
-                sakshambitsp/connect:latest
 
-    
+    steps:
+      # Pull image from Docker Hub
+    - name: Pull Docker image
+      run: |
+        sudo docker pull sakshambitsp/connect:latest
+
+      # Run Docker container
+    - name: Run Docker container
+      run: |
+        sudo docker run -d -p 3000:3000 \
+          --restart unless-stopped \
+          sakshambitsp/connect:latest
