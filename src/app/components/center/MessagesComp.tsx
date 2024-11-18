@@ -25,8 +25,8 @@ const MessagesComp = () => {
   if (typeof window !== "undefined") {
     myvar = localStorage.getItem("token");
   }
-  const SUPABASE_URL = "NEXT_PUBLIC_API_URL";
-  const SUPABASE_ANON_KEY = "NEXT_PUBLIC_SUPABASE_URL";
+  const SUPABASE_URL = "NEXT_PUBLIC_SUPABASE_URL";
+  const SUPABASE_ANON_KEY = "NEXT_PUBLIC_SUPABASE_ANON_KEY";
   useEffect(() => {
     console.log("supabase url", SUPABASE_URL);
     console.log("supabase anon key", SUPABASE_ANON_KEY);
