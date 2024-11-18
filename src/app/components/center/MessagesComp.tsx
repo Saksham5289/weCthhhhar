@@ -8,6 +8,8 @@ import { rootState } from "../../redux/rootState";
 import axios from "axios";
 import { createClient } from "@supabase/supabase-js";
 
+export const dynamic = "force-dynamic";
+
 const MessagesComp = () => {
   interface Message {
     id: number;
