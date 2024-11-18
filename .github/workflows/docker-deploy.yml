@@ -46,10 +46,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-232-245-88.ap-south-1.compute.amazonaws.com << 'EOF'
             # Pull the Docker image
-            docker pull sakshambitsp/connect:latest
+           sudo docker pull sakshambitsp/connect:latest
 
             # Run the Docker container with environment variables
-            docker run -d -p 3000:3000 \
+           sudo docker run -d -p 3000:3000 \
               --restart unless-stopped \
               -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
               -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
