@@ -25,12 +25,12 @@ const MessagesComp = () => {
   if (typeof window !== "undefined") {
     myvar = localStorage.getItem("token");
   }
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const SUPABASE_URL = "NEXT_PUBLIC_API_URL";
+  const SUPABASE_ANON_KEY = "NEXT_PUBLIC_SUPABASE_URL";
   useEffect(() => {
     console.log("supabase url", SUPABASE_URL);
     console.log("supabase anon key", SUPABASE_ANON_KEY);
-    // @ts-expect-error "asdffff"
+
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const fetchAllMessages = async () => {
