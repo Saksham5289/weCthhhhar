@@ -6,9 +6,8 @@ on:
       - t3c
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       # Checkout the code
       - name: Checkout code
@@ -30,25 +29,32 @@ jobs:
         run: |
           docker build -t sakshambitsp/connect .
 
-      # Push Docker image
+      # Push Docker image to Docker Hub
       - name: Push Docker image
         run: |
           docker tag sakshambitsp/connect:latest sakshambitsp/connect:latest
           docker push sakshambitsp/connect:latest
 
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Pull image from docker hub
-        run:  sudo docker pull sakshambitsp/connect:latest
-      - name: Run docker container
+      # Set up SSH agent with private key
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Connect to EC2 instance and pull & run the Docker image
+      - name: Deploy to EC2
         run: |
-            sudo docker run -d -p 3000:3000 \
-                 --restart unless-stopped \
-                 -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-                 -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
-                 -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
-                 -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
-                 -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
-                  sakshambitsp/connect:latest
+          ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-232-245-88.ap-south-1.compute.amazonaws.com << 'EOF'
+            # Pull the Docker image
+            docker pull sakshambitsp/connect:latest
+
+            # Run the Docker container with environment variables
+            docker run -d -p 3000:3000 \
+              --restart unless-stopped \
+              -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+              -e DIRECT_URL=${{ secrets.DIRECT_URL }} \
+              -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} \
+              -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+              -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
+              sakshambitsp/connect:latest
+          EOF
