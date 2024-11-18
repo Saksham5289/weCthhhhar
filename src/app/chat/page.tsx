@@ -2,7 +2,7 @@ import React from "react";
 import LeftBar from "../components/left/LeftBar";
 import CenterBar from "../components/center/CenterBar";
 import RightBar from "../components/right/RightBar";
-
+export const dynamic = "force-dynamic";
 const page = () => {
   return (
     <div className="w-screen h-screen flex justify-center bg-cyan-200 p-4">
